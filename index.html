@@ -28,7 +28,7 @@
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
                            <button onclick="handleProductPriceCalculation('phone', false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input id="phone-count" type="number" min="0" class="form-control text-center" value="1">
+                           <input id="phone-count" type="number" min="0" class="form-control text-center" value="0">
                            <button onclick="handleProductPriceCalculation('phone', true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
                         <h5 id="phone-price">$1219</h5>
@@ -46,7 +46,7 @@
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
                            <button onclick="handleProductPriceCalculation('case', false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input id="case-count" type="number" min="0" class="form-control text-center" value="1">
+                           <input id="case-count" type="number" min="0" class="form-control text-center" value="0">
                            <button onclick="handleProductPriceCalculation('case', true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
@@ -66,9 +66,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5 id="sub-total">$00</h5>
+                        <h5 id="tax">$0</h5>
+                        <h5 id="grand-total">$00</h5>
                      </div>
                   </div>
                </div>
@@ -134,7 +134,31 @@
             productTotalPrice = productInputNewValue * 59;
          }
          document.getElementById(product + '-price').innerText = '$' + productTotalPrice;
-      } 
+         calculateSubtotal();
+      }
+
+      //calculate subtotal , tax and grandTotal
+      function calculateSubtotal () {
+         // console.log('get sub toatl')
+         const phoneInput = document.getElementById('phone-count');
+         const phoneInputValue = parseFloat(phoneInput.value);
+         // console.log(phoneInputValue)
+
+         const caseInput = document.getElementById('case-count');
+         const caseInputValue = parseFloat(caseInput.value);
+         // console.log(caseInputValue)
+
+         const subTotalCalculate = phoneInputValue * 1219 + caseInputValue * 59; 
+         // console.log(subTotalCalculate)
+         const subtotal = document.getElementById('sub-total').innerText = subTotalCalculate;
+         // console.log(subtotal)
+
+         const tax = Math.round(subTotalCalculate * 0.1);
+         document.getElementById('tax').innerText = '$'+ tax;
+
+         const grandTotal = tax + subTotalCalculate;
+         document.getElementById('grand-total').innerText = '$' + grandTotal;
+      }
 
    </script>
 </body>
