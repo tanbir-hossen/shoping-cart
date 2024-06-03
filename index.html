@@ -45,9 +45,9 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button id="case-decrease" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <button onclick="handleProductPriceCalculation(false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
                            <input id="case-count" type="number" min="0" class="form-control text-center" value="1">
-                           <button id="case-increase" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button onclick="handleProductPriceCalculation(true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
                         <h5 id="case-price">$59</h5>
@@ -82,26 +82,52 @@
 
    <!-- js -->
    <script>
-      document.getElementById('case-increase').addEventListener('click', function () {
-         // console.log('+ clicked');
+      // document.getElementById('case-increase').addEventListener('click', function () {
+      //    // console.log('+ clicked');
+      //    const caseInputField = document.getElementById('case-count');
+      //    const caseInputFieldValue = parseFloat(caseInputField.value)
+      //    const caseInputNewValue = caseInputFieldValue + 1;
+      //    caseInputField.value = caseInputNewValue;
+      //    const caseTotalPrice = caseInputNewValue * 59;
+      //    document.getElementById('case-price').innerText = '$' + caseTotalPrice;
+      // })
+
+
+      //get case decrease button , set functionality, calculate price and show price in element. 
+      // document.getElementById('case-decrease').addEventListener('click', function () {
+      //    // console.log('- clicked')
+      //    const caseInputField = document.getElementById('case-count');
+      //    const caseInputFieldValue = parseFloat(caseInputField.value)
+      //    const caseInputNewValue = caseInputFieldValue - 1;
+      //    caseInputField.value = caseInputNewValue;
+      //    const caseTotalPrice = caseInputNewValue * 59;
+      //    document.getElementById('case-price').innerText = '$' + caseTotalPrice;
+      // })
+
+      //reducing code avoding function duplicate
+      // document.getElementById('case-decrease').addEventListener('click', function () {
+      //    // console.log('- clicked')
+
+      //    handleProductPriceCalculation(false)
+      // })
+
+
+      //get product qunatity and calculate product price
+      function handleProductPriceCalculation(isIncrease) {
          const caseInputField = document.getElementById('case-count');
          const caseInputFieldValue = parseFloat(caseInputField.value)
-         const caseInputNewValue = caseInputFieldValue + 1;
+         // const caseInputNewValue = caseInputFieldValue - 1;
+         let caseInputNewValue = caseInputFieldValue;
+         if(isIncrease == false && caseInputFieldValue > 0) {
+            caseInputNewValue = caseInputFieldValue - 1;
+         }
+         if(isIncrease == true) {
+            caseInputNewValue =caseInputFieldValue + 1;
+         }
          caseInputField.value = caseInputNewValue;
          const caseTotalPrice = caseInputNewValue * 59;
          document.getElementById('case-price').innerText = '$' + caseTotalPrice;
-      })
-
-
-      document.getElementById('case-decrease').addEventListener('click', function () {
-         // console.log('- clicked')
-         const caseInputField = document.getElementById('case-count');
-         const caseInputFieldValue = parseFloat(caseInputField.value)
-         const caseInputNewValue = caseInputFieldValue - 1;
-         caseInputField.value = caseInputNewValue;
-         const caseTotalPrice = caseInputNewValue * 59;
-         document.getElementById('case-price').innerText = '$' + caseTotalPrice;
-      })
+      } 
    </script>
 </body>
 
