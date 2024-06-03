@@ -27,11 +27,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="number" min="0" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button onclick="handleProductPriceCalculation('phone', false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="phone-count" type="number" min="0" class="form-control text-center" value="1">
+                           <button onclick="handleProductPriceCalculation('phone', true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5 id="phone-price">$1219</h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -45,9 +45,9 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button onclick="handleProductPriceCalculation(false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <button onclick="handleProductPriceCalculation('case', false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
                            <input id="case-count" type="number" min="0" class="form-control text-center" value="1">
-                           <button onclick="handleProductPriceCalculation(true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button onclick="handleProductPriceCalculation('case', true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
                         <h5 id="case-price">$59</h5>
@@ -112,22 +112,30 @@
       // })
 
 
-      //get product qunatity and calculate product price
-      function handleProductPriceCalculation(isIncrease) {
-         const caseInputField = document.getElementById('case-count');
-         const caseInputFieldValue = parseFloat(caseInputField.value)
+      //set onclick to plus button, get product qunatity and calculate product price
+      function handleProductPriceCalculation(product, isIncrease) {
+         const productInputField = document.getElementById(product + '-count');
+         const productInputFieldCount = parseFloat(productInputField.value)
          // const caseInputNewValue = caseInputFieldValue - 1;
-         let caseInputNewValue = caseInputFieldValue;
-         if(isIncrease == false && caseInputFieldValue > 0) {
-            caseInputNewValue = caseInputFieldValue - 1;
+         let productInputNewValue = productInputFieldCount;
+         if(isIncrease == false && productInputFieldCount > 0) {
+            productInputNewValue = productInputFieldCount - 1;
          }
          if(isIncrease == true) {
-            caseInputNewValue =caseInputFieldValue + 1;
+            productInputNewValue = productInputFieldCount + 1;
          }
-         caseInputField.value = caseInputNewValue;
-         const caseTotalPrice = caseInputNewValue * 59;
-         document.getElementById('case-price').innerText = '$' + caseTotalPrice;
+         productInputField.value = productInputNewValue;
+         // const productTotalPrice = productInputNewValue * 59;
+         let productTotalPrice = 0;
+         if (product == 'phone') {
+            productTotalPrice = productInputNewValue * 1219;
+         }
+         if (product == 'case') {
+            productTotalPrice = productInputNewValue * 59;
+         }
+         document.getElementById(product + '-price').innerText = '$' + productTotalPrice;
       } 
+
    </script>
 </body>
 
